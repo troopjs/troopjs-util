@@ -1,16 +1,16 @@
 /*!
- * TroopJS Utils arg module
+ * TroopJS Utils getargs module
  * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
  * Released under the MIT license.
  */
-define(function ArgModule() {
+define(function GetArgsModule() {
 	var PUSH = Array.prototype.push;
 	var SUBSTRING = String.prototype.substring;
 	var RE_BOOLEAN = /^(?:false|true)$/i;
 	var RE_BOOLEAN_TRUE = /^true$/i;
 	var RE_DIGIT = /^\d+$/;
 
-	return function arg() {
+	return function getargs() {
 		var self = this;
 		var result = [];
 		var length;
