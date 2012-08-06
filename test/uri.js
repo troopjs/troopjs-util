@@ -1,5 +1,5 @@
-buster.testCase("URI", function (run) {
-	require( [ "troopjs-core/util/uri" ] , function (URI) {
+buster.testCase("troopjs-utils/arg", function (run) {
+	require( [ "troopjs-utils/uri" ] , function (URI) {
 		run({
 			"(empty)" : function () {
 				var source = "";
