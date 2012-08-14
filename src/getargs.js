@@ -24,7 +24,7 @@ define(function GetArgsModule() {
 		// Iterate over string
 		for (from = to = i = 0, length = self.length; i < length; i++) {
 			// Get char
-			c = self[i];
+			c = self.charAt(i);
 
 			switch(c) {
 				case "\"" :
