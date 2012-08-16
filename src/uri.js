@@ -45,12 +45,64 @@ define([ "compose" ], function URIModule(Compose) {
 	// Prevent Compose from creating constructor property
 	Compose.secure = true;
 
+	function queryToString() {
+		var self = this;
+		var key = NULL;
+		var value = NULL;
+		var values;
+		var query = [];
+		var i = 0;
+		var j;
+
+		for (key in self) {
+			if (TOSTRING.call(self[key]) === TOSTRING_FUNCTION) {
+				continue;
+			}
+
+			query[i++] = key;
+		}
+
+		query.sort();
+
+		while (i--) {
+			key = query[i];
+			value = self[key];
+
+			if (TOSTRING.call(value) === TOSTRING_ARRAY) {
+				values = value.slice(0);
+
+				values.sort();
+
+				j = values.length;
+
+				while (j--) {
+					value = values[j];
+
+					values[j] = value === ""
+						? key
+						: key + "=" + value;
+				}
+
+				query[i] = values.join("&");
+			}
+			else {
+				query[i] = value === ""
+					? key
+					: key + "=" + value;
+			}
+		}
+
+		return query.join("&");
+	}
+
 	var Query = Compose(function Query(arg) {
 		var self = this;
 		var matches;
 		var key = NULL;
 		var value;
 		var re = /(?:&|^)([^&=]*)=?([^&]*)/g;
+
+		this.toString = queryToString;
 
 		if (TOSTRING.call(arg) === TOSTRING_OBJECT) {
 			for (key in arg) {
@@ -76,73 +128,65 @@ define([ "compose" ], function URIModule(Compose) {
 			}
 		}
 
-	}, {
-		toString : function toString() {
-			var self = this;
-			var key = NULL;
-			var value = NULL;
-			var values;
-			var query = [];
-			var i = 0;
-			var j;
-
-			for (key in self) {
-				if (TOSTRING.call(self[key]) === TOSTRING_FUNCTION) {
-					continue;
-				}
-
-				query[i++] = key;
-			}
-
-			query.sort();
-
-			while (i--) {
-				key = query[i];
-				value = self[key];
-
-				if (TOSTRING.call(value) === TOSTRING_ARRAY) {
-					values = value.slice(0);
-
-					values.sort();
-
-					j = values.length;
-
-					while (j--) {
-						value = values[j];
-
-						values[j] = value === ""
-							? key
-							: key + "=" + value;
-					}
-
-					query[i] = values.join("&");
-				}
-				else {
-					query[i] = value === ""
-						? key
-						: key + "=" + value;
-				}
-			}
-
-			return query.join("&");
-		}
 	});
 
+	function pathToString() {
+		return this.join("/");
+	}
+
 	var Path = Compose(ARRAY_PROTO, function Path(arg) {
+		this.toString = pathToString;
+
 		PUSH.apply(this, TOSTRING.call(arg) === TOSTRING_ARRAY
 			? arg
 			: SPLIT.call(arg, "/"));
-	}, {
-		toString : function toString() {
-			return this.join("/");
-		}
 	});
+
+	function uriToString() {
+		var self = this;
+		var uri = [ PROTOCOL , "://", AUTHORITY, PATH, "?", QUERY, "#", ANCHOR ];
+		var i;
+		var key;
+
+		if (!(PROTOCOL in self)) {
+			uri[0] = uri[1] = "";
+		}
+
+		if (!(AUTHORITY in self)) {
+			uri[2] = "";
+		}
+
+		if (!(PATH in self)) {
+			uri[3] = "";
+		}
+
+		if (!(QUERY in self)) {
+			uri[4] = uri[5] = "";
+		}
+
+		if (!(ANCHOR in self)) {
+			uri[6] = uri[7] = "";
+		}
+
+		i = uri.length;
+
+		while (i--) {
+			key = uri[i];
+
+			if (key in self) {
+				uri[i] = self[key];
+			}
+		}
+
+		return uri.join("");
+	}
 
 	var URI = Compose(function URI(str) {
 		var self = this;
 		var value;
 		var matches;
 		var i;
+		this.toString = uriToString;
 
 		if ((matches = RE_URI.exec(str)) !== NULL) {
 			i = matches.length;
@@ -162,45 +206,6 @@ define([ "compose" ], function URIModule(Compose) {
 
 		if (PATH in self) {
 			self[PATH] = Path(self[PATH]);
-		}
-	}, {
-		toString : function toString() {
-			var self = this;
-			var uri = [ PROTOCOL , "://", AUTHORITY, PATH, "?", QUERY, "#", ANCHOR ];
-			var i;
-			var key;
-
-			if (!(PROTOCOL in self)) {
-				uri[0] = uri[1] = "";
-			}
-
-			if (!(AUTHORITY in self)) {
-				uri[2] = "";
-			}
-
-			if (!(PATH in self)) {
-				uri[3] = "";
-			}
-
-			if (!(QUERY in self)) {
-				uri[4] = uri[5] = "";
-			}
-
-			if (!(ANCHOR in self)) {
-				uri[6] = uri[7] = "";
-			}
-
-			i = uri.length;
-
-			while (i--) {
-				key = uri[i];
-
-				if (key in self) {
-					uri[i] = self[key];
-				}
-			}
-
-			return uri.join("");
 		}
 	});
 
