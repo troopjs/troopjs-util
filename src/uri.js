@@ -128,13 +128,20 @@ define([ "compose" ], function URIModule(Compose) {
 		return query.join("&");
 	};
 
-	var Path = Compose(ARRAY_PROTO, function Path(arg) {
-		PUSH.apply(this, TOSTRING.call(arg) === TOSTRING_ARRAY
+	// Extend on the instance of array rather than subclass it
+	function Path(arg) {
+		var result = [];
+		
+		result.toString = Path.toString;
+
+		PUSH.apply(result, TOSTRING.call(arg) === TOSTRING_ARRAY
 			? arg
 			: SPLIT.call(arg, "/"));
-	});
 
-	Path.prototype.toString = function () {
+		return result;
+	}
+
+	Path.toString = function() {
 		return this.join("/");
 	};
 
