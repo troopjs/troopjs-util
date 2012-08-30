@@ -45,40 +45,43 @@ define([ "compose" ], function URIModule(Compose) {
 	// Prevent Compose from creating constructor property
 	Compose.secure = true;
 
-	var Query = Compose(function Query(arg) {
-		var self = this;
+	function Query(arg) {
+		var result = {};
 		var matches;
 		var key = NULL;
 		var value;
 		var re = /(?:&|^)([^&=]*)=?([^&]*)/g;
 
+		result.toString = Query.toString;
+
 		if (TOSTRING.call(arg) === TOSTRING_OBJECT) {
 			for (key in arg) {
-				self[key] = arg[key];
+				result[key] = arg[key];
 			}
 		} else {
 			while ((matches = re.exec(arg)) !== NULL) {
 				key = matches[1];
 
-				if (key in self) {
-					value = self[key];
+				if (key in result) {
+					value = result[key];
 
 					if (TOSTRING.call(value) === TOSTRING_ARRAY) {
 						value[value.length] = matches[2];
 					}
 					else {
-						self[key] = [ value, matches[2] ];
+						result[key] = [ value, matches[2] ];
 					}
 				}
 				else {
-					self[key] = matches[2];
+					result[key] = matches[2];
 				}
 			}
 		}
 
-	});
+		return result;
+	}
 
-	Query.prototype.toString = function() {
+	Query.toString = function toString() {
 		var self = this;
 		var key = NULL;
 		var value = NULL;
