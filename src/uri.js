@@ -45,98 +45,108 @@ define([ "compose" ], function URIModule(Compose) {
 	// Prevent Compose from creating constructor property
 	Compose.secure = true;
 
-	var Query = Compose(function Query(arg) {
-		var self = this;
+	function Query(arg) {
+		var result = {};
 		var matches;
 		var key = NULL;
 		var value;
 		var re = /(?:&|^)([^&=]*)=?([^&]*)/g;
 
+		result.toString = Query.toString;
+
 		if (TOSTRING.call(arg) === TOSTRING_OBJECT) {
 			for (key in arg) {
-				self[key] = arg[key];
+				result[key] = arg[key];
 			}
 		} else {
 			while ((matches = re.exec(arg)) !== NULL) {
 				key = matches[1];
 
-				if (key in self) {
-					value = self[key];
+				if (key in result) {
+					value = result[key];
 
 					if (TOSTRING.call(value) === TOSTRING_ARRAY) {
 						value[value.length] = matches[2];
 					}
 					else {
-						self[key] = [ value, matches[2] ];
+						result[key] = [ value, matches[2] ];
 					}
 				}
 				else {
-					self[key] = matches[2];
+					result[key] = matches[2];
 				}
 			}
 		}
 
-	}, {
-		toString : function toString() {
-			var self = this;
-			var key = NULL;
-			var value = NULL;
-			var values;
-			var query = [];
-			var i = 0;
-			var j;
+		return result;
+	}
 
-			for (key in self) {
-				if (TOSTRING.call(self[key]) === TOSTRING_FUNCTION) {
-					continue;
-				}
+	Query.toString = function toString() {
+		var self = this;
+		var key = NULL;
+		var value = NULL;
+		var values;
+		var query = [];
+		var i = 0;
+		var j;
 
-				query[i++] = key;
+		for (key in self) {
+			if (TOSTRING.call(self[key]) === TOSTRING_FUNCTION) {
+				continue;
 			}
 
-			query.sort();
+			query[i++] = key;
+		}
 
-			while (i--) {
-				key = query[i];
-				value = self[key];
+		query.sort();
 
-				if (TOSTRING.call(value) === TOSTRING_ARRAY) {
-					values = value.slice(0);
+		while (i--) {
+			key = query[i];
+			value = self[key];
 
-					values.sort();
+			if (TOSTRING.call(value) === TOSTRING_ARRAY) {
+				values = value.slice(0);
 
-					j = values.length;
+				values.sort();
 
-					while (j--) {
-						value = values[j];
+				j = values.length;
 
-						values[j] = value === ""
-							? key
-							: key + "=" + value;
-					}
+				while (j--) {
+					value = values[j];
 
-					query[i] = values.join("&");
-				}
-				else {
-					query[i] = value === ""
+					values[j] = value === ""
 						? key
 						: key + "=" + value;
 				}
+
+				query[i] = values.join("&");
 			}
-
-			return query.join("&");
+			else {
+				query[i] = value === ""
+					? key
+					: key + "=" + value;
+			}
 		}
-	});
 
-	var Path = Compose(ARRAY_PROTO, function Path(arg) {
-		PUSH.apply(this, TOSTRING.call(arg) === TOSTRING_ARRAY
+		return query.join("&");
+	};
+
+	// Extend on the instance of array rather than subclass it
+	function Path(arg) {
+		var result = [];
+		
+		result.toString = Path.toString;
+
+		PUSH.apply(result, TOSTRING.call(arg) === TOSTRING_ARRAY
 			? arg
 			: SPLIT.call(arg, "/"));
-	}, {
-		toString : function toString() {
-			return this.join("/");
-		}
-	});
+
+		return result;
+	}
+
+	Path.toString = function() {
+		return this.join("/");
+	};
 
 	var URI = Compose(function URI(str) {
 		var self = this;
@@ -163,46 +173,46 @@ define([ "compose" ], function URIModule(Compose) {
 		if (PATH in self) {
 			self[PATH] = Path(self[PATH]);
 		}
-	}, {
-		toString : function toString() {
-			var self = this;
-			var uri = [ PROTOCOL , "://", AUTHORITY, PATH, "?", QUERY, "#", ANCHOR ];
-			var i;
-			var key;
-
-			if (!(PROTOCOL in self)) {
-				uri[0] = uri[1] = "";
-			}
-
-			if (!(AUTHORITY in self)) {
-				uri[2] = "";
-			}
-
-			if (!(PATH in self)) {
-				uri[3] = "";
-			}
-
-			if (!(QUERY in self)) {
-				uri[4] = uri[5] = "";
-			}
-
-			if (!(ANCHOR in self)) {
-				uri[6] = uri[7] = "";
-			}
-
-			i = uri.length;
-
-			while (i--) {
-				key = uri[i];
-
-				if (key in self) {
-					uri[i] = self[key];
-				}
-			}
-
-			return uri.join("");
-		}
 	});
+
+	URI.prototype.toString = function () {
+		var self = this;
+		var uri = [ PROTOCOL , "://", AUTHORITY, PATH, "?", QUERY, "#", ANCHOR ];
+		var i;
+		var key;
+
+		if (!(PROTOCOL in self)) {
+			uri[0] = uri[1] = "";
+		}
+
+		if (!(AUTHORITY in self)) {
+			uri[2] = "";
+		}
+
+		if (!(PATH in self)) {
+			uri[3] = "";
+		}
+
+		if (!(QUERY in self)) {
+			uri[4] = uri[5] = "";
+		}
+
+		if (!(ANCHOR in self)) {
+			uri[6] = uri[7] = "";
+		}
+
+		i = uri.length;
+
+		while (i--) {
+			key = uri[i];
+
+			if (key in self) {
+				uri[i] = self[key];
+			}
+		}
+
+		return uri.join("");
+	};
 
 	// Restore Compose.secure setting
 	Compose.secure = SECURE;
