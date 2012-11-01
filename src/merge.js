@@ -3,9 +3,10 @@
  * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
  * Released under the MIT license.
  */
-/*global define:true */
+/*global define:false */
 define(function MergeModule() {
 	/*jshint strict:false */
+
 	var ARRAY = Array;
 	var OBJECT = Object;
 

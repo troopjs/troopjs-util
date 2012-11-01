@@ -1,11 +1,12 @@
-/*!
+/*!true
  * TroopJS Utils tr component
  * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
  * Released under the MIT license.
  */
-/*global define:true */
+/*global define:false */
 define(function TrModule() {
 	/*jshint strict:false */
+
 	var TYPEOF_NUMBER = typeof Number();
 
 	return function tr(callback) {

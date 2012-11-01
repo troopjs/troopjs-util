@@ -3,9 +3,10 @@
  * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
  * Released under the MIT license.
  */
-/*global define:true */
+/*global define:false */
 define(function UniqueModule() {
 	/*jshint strict:false */
+
 	return function unique(callback) {
 		var self = this;
 		var length = self.length;

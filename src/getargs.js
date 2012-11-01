@@ -3,9 +3,10 @@
  * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
  * Released under the MIT license.
  */
-/*global define:true */
+/*global define:false */
 define(function GetArgsModule() {
 	/*jshint strict:false */
+
 	var PUSH = Array.prototype.push;
 	var SUBSTRING = String.prototype.substring;
 	var RE_BOOLEAN = /^(?:false|true)$/i;
