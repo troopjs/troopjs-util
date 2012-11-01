@@ -17,7 +17,6 @@ define([ "compose" ], function URIModule(Compose) {
 	var TOSTRING = OBJECT_PROTO.toString;
 	var TOSTRING_OBJECT = TOSTRING.call(OBJECT_PROTO);
 	var TOSTRING_ARRAY = TOSTRING.call(ARRAY_PROTO);
-	var TOSTRING_STRING = TOSTRING.call(String.prototype);
 	var TOSTRING_FUNCTION = TOSTRING.call(Function.prototype);
 	var RE_URI = /^(?:([^:\/?#]+):)?(?:\/\/((?:(([^:@]*)(?::([^:@]*))?)?@)?([^:\/?#]*)(?::(\d*))?))?(?:([^?#]*)(?:\?([^#]*))?(?:#(.*))?)/;
 
@@ -83,8 +82,8 @@ define([ "compose" ], function URIModule(Compose) {
 
 	Query.toString = function toString() {
 		var self = this;
-		var key = NULL;
-		var value = NULL;
+		var key;
+		var value;
 		var values;
 		var query = [];
 		var i = 0;
