@@ -1,10 +1,8 @@
-/*!
- * TroopJS Utils URI module
- * 
- * parts of code from parseUri 1.2.2 Copyright Steven Levithan <stevenlevithan.com>
- * 
- * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
- * Released under the MIT license.
+/**
+ * TroopJS utils/uri
+ * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
+ *
+ * Parts of code from parseUri 1.2.2 Copyright Steven Levithan <stevenlevithan.com>
  */
 /*global define:false */
 define([ "compose" ], function URIModule(Compose) {

@@ -1,7 +1,6 @@
-/*!
- * TroopJS Utils unique component
- * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
- * Released under the MIT license.
+/**
+ * TroopJS utils/unique
+ * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
  */
 /*global define:false */
 define(function UniqueModule() {
