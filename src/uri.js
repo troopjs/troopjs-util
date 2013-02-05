@@ -5,7 +5,7 @@
  * Parts of code from parseUri 1.2.2 Copyright Steven Levithan <stevenlevithan.com>
  */
 /*global define:false */
-define([ "compose" ], function URIModule(Compose) {
+define([ "troopjs-core/component/factory" ], function URIModule(Factory) {
 	/*jshint strict:false, smarttabs:true, laxbreak:true, newcap:false, forin:false, loopfunc:true */
 
 	var NULL = null;
@@ -36,12 +36,6 @@ define([ "compose" ], function URIModule(Compose) {
 		PATH,
 		QUERY,
 		ANCHOR ];
-
-	// Store current Compose.secure setting
-	var SECURE = Compose.secure;
-
-	// Prevent Compose from creating constructor property
-	Compose.secure = true;
 
 	function Query(arg) {
 		var result = {};
@@ -146,7 +140,7 @@ define([ "compose" ], function URIModule(Compose) {
 		return this.join("/");
 	};
 
-	var URI = Compose(function URI(str) {
+	var URI = Factory(function URI(str) {
 		var self = this;
 		var value;
 		var matches;
@@ -211,9 +205,6 @@ define([ "compose" ], function URIModule(Compose) {
 
 		return uri.join("");
 	};
-
-	// Restore Compose.secure setting
-	Compose.secure = SECURE;
 
 	URI.Path = Path;
 	URI.Query = Query;
