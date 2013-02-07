@@ -166,47 +166,47 @@ define([ "troopjs-core/component/factory" ], function URIModule(Factory) {
 			self[PATH] = Path(self[PATH]);
 		}
 	}, {
-		displayName : "utils/uri"
-	});
+		"displayName" : "utils/uri",
 
-	URI.prototype.toString = function () {
-		var self = this;
-		var uri = [ PROTOCOL , "://", AUTHORITY, PATH, "?", QUERY, "#", ANCHOR ];
-		var i;
-		var key;
+		"toString" : function toString() {
+			var self = this;
+			var uri = [ PROTOCOL , "://", AUTHORITY, PATH, "?", QUERY, "#", ANCHOR ];
+			var i;
+			var key;
 
-		if (!(PROTOCOL in self)) {
-			uri[0] = uri[1] = "";
-		}
-
-		if (!(AUTHORITY in self)) {
-			uri[2] = "";
-		}
-
-		if (!(PATH in self)) {
-			uri[3] = "";
-		}
-
-		if (!(QUERY in self)) {
-			uri[4] = uri[5] = "";
-		}
-
-		if (!(ANCHOR in self)) {
-			uri[6] = uri[7] = "";
-		}
-
-		i = uri.length;
-
-		while (i--) {
-			key = uri[i];
-
-			if (key in self) {
-				uri[i] = self[key];
+			if (!(PROTOCOL in self)) {
+				uri[0] = uri[1] = "";
 			}
-		}
 
-		return uri.join("");
-	};
+			if (!(AUTHORITY in self)) {
+				uri[2] = "";
+			}
+
+			if (!(PATH in self)) {
+				uri[3] = "";
+			}
+
+			if (!(QUERY in self)) {
+				uri[4] = uri[5] = "";
+			}
+
+			if (!(ANCHOR in self)) {
+				uri[6] = uri[7] = "";
+			}
+
+			i = uri.length;
+
+			while (i--) {
+				key = uri[i];
+
+				if (key in self) {
+					uri[i] = self[key];
+				}
+			}
+
+			return uri.join("");
+		}
+	});
 
 	URI.Path = Path;
 	URI.Query = Query;
