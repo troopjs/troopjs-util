@@ -22,12 +22,12 @@ define(function UniqueModule() {
 
 		// Did we provide a comparator?
 		if (comparator) {
-			outer: for (i = k = 0; i < iMax; i++) {
+			comparator_outer: for (i = k = 0; i < iMax; i++) {
 				arg = args[i];
 
 				for (j = 0; j < i; j++) {
 					if (comparator.call(args, arg, [j]) === true) {
-						continue outer;
+						continue comparator_outer;
 					}
 				}
 
