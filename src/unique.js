@@ -1,30 +1,55 @@
-/*!
- * TroopJS Utils unique component
- * @license TroopJS Copyright 2012, Mikael Karon <mikael@karon.se>
- * Released under the MIT license.
+/**
+ * TroopJS utils/unique
+ * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
  */
+/*global define:false */
 define(function UniqueModule() {
-	return function unique(callback) {
-		var self = this;
-		var length = self.length;
-		var result = [];
-		var value;
+	/*jshint strict:false */
+
+	var LENGTH = "length";
+
+	/**
+	 * Reduces array to only contain unique values (evals left-right)
+	 * @returns {Number} New length of array
+	 */
+	return function unique(comparator) {
+		var arg;
+		var args = this;
 		var i;
 		var j;
 		var k;
+		var iMax = args[LENGTH];
 
-		add: for (i = j = k = 0; i < length; i++, j = 0) {
-			value = self[i];
+		// Did we provide a comparator?
+		if (comparator) {
+			comparator_outer: for (i = k = 0; i < iMax; i++) {
+				arg = args[i];
 
-			while(j < k) {
-				if (callback.call(self, value, result[j++]) === true) {
-					continue add;
+				for (j = 0; j < i; j++) {
+					if (comparator.call(args, arg, [j]) === true) {
+						continue comparator_outer;
+					}
 				}
-			}
 
-			result[k++] = value;
+				args[k++] = arg;
+			}
+		}
+		// Otherwise use strict equality
+		else {
+			outer: for (i = k = 0; i < iMax; i++) {
+				arg = args[i];
+
+				for (j = 0; j < i; j++) {
+					if (arg === args[j]) {
+						continue outer;
+					}
+				}
+
+				args[k++] = arg;
+			}
 		}
 
-		return result;
+		// Assign and return new length
+		return args[LENGTH] = k;
 	};
 });
