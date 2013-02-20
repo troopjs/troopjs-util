@@ -31,5 +31,5 @@ define(function FilterModule() {
 
 		// Assign and return new length
 		return args[LENGTH] = j;
-	}
+	};
 });
