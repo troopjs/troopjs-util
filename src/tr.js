@@ -6,7 +6,7 @@
 define(function TrModule() {
 	/*jshint strict:false */
 
-	var TYPEOF_NUMBER = typeof Number();
+	var TYPEOF_NUMBER = "number";
 
 	return function tr(callback) {
 		var self = this;
