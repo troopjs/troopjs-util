@@ -2,9 +2,8 @@
  * TroopJS utils/merge module
  * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
  */
-/*global define:false */
 define([ "poly/object" ], function MergeModule() {
-	/*jshint strict:false */
+	"use strict";
 
 	var LENGTH = "length";
 	var ARRAY_PROTO = Array.prototype;

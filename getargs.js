@@ -2,9 +2,8 @@
  * TroopJS utils/getargs
  * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
  */
-/*global define:false */
 define(function GetArgsModule() {
-	/*jshint strict:false */
+	"use strict";
 
 	var PUSH = Array.prototype.push;
 	var SUBSTRING = String.prototype.substring;
@@ -30,6 +29,7 @@ define(function GetArgsModule() {
 
 			switch(c) {
 				case "\"" :
+				/* falls through */
 				case "'" :
 					// If we are currently quoted...
 					if (q === c) {
@@ -76,6 +76,7 @@ define(function GetArgsModule() {
 					break;
 
 				case " " :
+				/* falls through */
 				case "\t" :
 					// Continue if we're quoted
 					if (q) {

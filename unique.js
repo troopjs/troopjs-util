@@ -2,9 +2,8 @@
  * TroopJS utils/unique
  * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
  */
-/*global define:false */
 define(function UniqueModule() {
-	/*jshint strict:false */
+	"use strict";
 
 	var LENGTH = "length";
 
@@ -49,7 +48,10 @@ define(function UniqueModule() {
 			}
 		}
 
-		// Assign and return new length
-		return args[LENGTH] = k;
+		// Assign new length
+		args[LENGTH] = k;
+
+		// Return new length
+		return k;
 	};
 });

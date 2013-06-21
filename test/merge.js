@@ -1,4 +1,9 @@
+/*globals buster:false*/
 buster.testCase("troopjs-utils/merge", function (run) {
+	"use strict";
+
+	var assert = buster.assert;
+
 	require( [ "troopjs-utils/merge" ] , function (merge) {
 		run({
 			"{'a':1} + {'b':2}" : function () {

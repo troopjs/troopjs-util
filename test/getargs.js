@@ -1,4 +1,9 @@
+/*globals buster:false*/
 buster.testCase("troopjs-utils/getargs", function (run) {
+	"use strict";
+
+	var assert = buster.assert;
+
 	require( [ "troopjs-utils/getargs" ] , function (getargs) {
 		run({
 			"1,true,3" : function () {
