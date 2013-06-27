@@ -12,7 +12,7 @@ define(function GetArgsModule() {
 	var RE_DIGIT = /^\d+$/;
 
 	return function getargs() {
-		var self = this;
+		var me = this;
 		var result = [];
 		var length;
 		var from;
@@ -23,9 +23,9 @@ define(function GetArgsModule() {
 		var q = false;
 
 		// Iterate over string
-		for (from = to = i = 0, length = self.length; i < length; i++) {
+		for (from = to = i = 0, length = me.length; i < length; i++) {
 			// Get char
-			c = self.charAt(i);
+			c = me.charAt(i);
 
 			switch(c) {
 				case "\"" :
@@ -37,7 +37,7 @@ define(function GetArgsModule() {
 						q = false;
 
 						// Store result (no need to convert, we know this is a string)
-						PUSH.call(result, SUBSTRING.call(self, from, to));
+						PUSH.call(result, SUBSTRING.call(me, from, to));
 					}
 					// Otherwise
 					else {
@@ -58,7 +58,7 @@ define(function GetArgsModule() {
 
 					// If we captured something...
 					if (from !== to) {
-						a = SUBSTRING.call(self, from, to);
+						a = SUBSTRING.call(me, from, to);
 
 						if (RE_BOOLEAN.test(a)) {
 							a = RE_BOOLEAN_TRUE.test(a);
@@ -98,7 +98,7 @@ define(function GetArgsModule() {
 
 		// If we captured something...
 		if (from !== to) {
-			a = SUBSTRING.call(self, from, to);
+			a = SUBSTRING.call(me, from, to);
 
 			if (RE_BOOLEAN.test(a)) {
 				a = RE_BOOLEAN_TRUE.test(a);
