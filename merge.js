@@ -1,4 +1,4 @@
-/**
+/*
  * TroopJS utils/merge module
  * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
  */
@@ -13,6 +13,15 @@ define([ "poly/object" ], function MergeModule() {
 	var TOSTRING_OBJECT = OBJECT_TOSTRING.call(OBJECT_PROTO);
 	var TOSTRING_ARRAY = OBJECT_TOSTRING.call(ARRAY_PROTO);
 
+	/**
+	 * Augments this object with enumerable properties from the source objects,
+	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
+	 * while object and array values will get merged recursively.
+	 * @method merge
+	 * @member Object
+	 * @param {Object...} [source] One or more source objects.
+	 * @return {Object} this
+	 */
 	return function merge(source) {
 		var target = this;
 		var key;

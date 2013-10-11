@@ -1,4 +1,4 @@
-/**
+/*
  * TroopJS utils/getargs
  * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
  */
@@ -11,6 +11,16 @@ define(function GetArgsModule() {
 	var RE_BOOLEAN_TRUE = /^true$/i;
 	var RE_DIGIT = /^\d+$/;
 
+	/**
+	 * Parse the list of values on this string, expecting it in form of function parameters delimited by commas.
+	 *
+	 * 	" 1  , '2' , 3  ,false,5 " => [ 1, "2", 3, false, 5]
+	 * 	'1, 2 ',  3,\"4\", 5  => [ "1, 2 ", 3, "4", 5 ]
+	 *
+	 * @member String
+	 * @method getargs
+	 * @return {Array} the array of parsed params.
+	 */
 	return function getargs() {
 		var me = this;
 		var result = [];
