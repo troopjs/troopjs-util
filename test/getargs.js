@@ -27,7 +27,7 @@ buster.testCase("troopjs-utils/getargs", function (run) {
 			},
 
 			" '1, 2 ',  3,\"4\", 5 " : function () {
-				assert.equals(getargs.call(" '1, 2 ',  3,\"4\", 5 "), [ "1, 2 ", "3", "4", "5" ]);
+				assert.equals(getargs.call(" '1, 2 ',  3,\"4\", 5 "), [ "1, 2 ", 3, "4", 5 ]);
 			}
 		});
 	});
