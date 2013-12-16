@@ -2,7 +2,7 @@
 buster.testCase("troopjs-utils/getargs", function (run) {
 	"use strict";
 
-	var assert = buster.assert;
+	var assert = buster.referee.assert;
 
 	require( [ "troopjs-utils/getargs" ] , function (getargs) {
 		run({

@@ -2,7 +2,7 @@
 buster.testCase("troopjs-utils/merge", function (run) {
 	"use strict";
 
-	var assert = buster.assert;
+	var assert = buster.referee.assert;
 
 	require( [ "troopjs-utils/merge" ] , function (merge) {
 		run({
