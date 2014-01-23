@@ -9,7 +9,8 @@ define([ "when", "poly/array" ], function DeferModule(when) {
 	var ARRAY_SLICE = Array.prototype.slice;
 
 	/**
-	 * Create a wrapped when.defer object, which can be send to anything that expects a jQuery/deferred.
+	 * @class utils.defer
+	 * Function that creates a wrapped when.defer object, which can be send to anything that expects a jQuery/deferred.
 	 */
 	return function Defer() {
 		// Create defer

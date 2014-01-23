@@ -14,11 +14,10 @@ define([ "poly/object" ], function MergeModule() {
 	var TOSTRING_ARRAY = OBJECT_TOSTRING.call(ARRAY_PROTO);
 
 	/**
-	 * Augments this object with enumerable properties from the source objects,
+	 * Function that calls on an Object, to augments this object with enumerable properties from the source objects,
 	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
 	 * while object and array values will get merged recursively.
-	 * @method merge
-	 * @member Object
+	 * @class utils.merge
 	 * @param {Object...} [source] One or more source objects.
 	 * @return {Object} this
 	 */

@@ -8,11 +8,10 @@ define(function UniqueModule() {
 	var LENGTH = "length";
 
 	/**
-	 * Produces a duplicate-free version of this array, using the specified comparator otherwise
+	 * Function that calls on an array to produces a duplicate-free version of this array, using the specified comparator otherwise
 	 * strictly equals(===) to test object equality.
 	 *
-	 * @member Array
-	 * @method unique
+	 * @class utils.unique
 	 * @param {Function} [fn] The comparator function.
 	 * @param {Function} fn.one One element to compare.
 	 * @param {Function} fn.other The other element to compare with.

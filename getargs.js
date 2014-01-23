@@ -12,13 +12,12 @@ define(function GetArgsModule() {
 	var RE_DIGIT = /^\d+$/;
 
 	/**
-	 * Parse the list of values on this string, expecting it in form of function parameters delimited by commas.
+	 * Function that calls on a String, to parses it as function parameters delimited by commas.
 	 *
 	 * 	" 1  , '2' , 3  ,false,5 " => [ 1, "2", 3, false, 5]
 	 * 	'1, 2 ',  3,\"4\", 5  => [ "1, 2 ", 3, "4", 5 ]
 	 *
-	 * @member String
-	 * @method getargs
+	 * @class utils.getargs
 	 * @return {Array} the array of parsed params.
 	 */
 	return function getargs() {
