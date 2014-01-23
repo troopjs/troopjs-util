@@ -1,4 +1,4 @@
-/**
+/*
  * TroopJS utils/defer
  * when.defer patched with jQuery/deferred compatibility.
  * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
@@ -8,6 +8,9 @@ define([ "when", "poly/array" ], function DeferModule(when) {
 
 	var ARRAY_SLICE = Array.prototype.slice;
 
+	/**
+	 * Create a wrapped when.defer object, which can be send to anything that expects a jQuery/deferred.
+	 */
 	return function Defer() {
 		// Create defer
 		var defer = when.defer();
