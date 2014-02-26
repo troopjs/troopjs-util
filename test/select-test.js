@@ -39,8 +39,8 @@ buster.testCase("troopjs-utils/select", function (run) {
 				assert.same(select.call(data, "grand.'child.escape'"), data.grand["child.escape"]);
 			},
 
-			"'grand.escape'.'child.escape'": function () {
-				assert.same(select.call(data, "'grand.escape'.'child.escape'"), data["grand.escape"]["child.escape"]);
+			"'grand.escape'.\"child.escape\"": function () {
+				assert.same(select.call(data, "'grand.escape'.\"child.escape\""), data["grand.escape"]["child.escape"]);
 			},
 
 			"[child]": function () {
@@ -63,8 +63,8 @@ buster.testCase("troopjs-utils/select", function (run) {
 				assert.same(select.call(data, "'[child]'"), data["[child]"]);
 			},
 
-			"[grand.escape]['child.escape']": function () {
-				assert.same(select.call(data, "[grand.escape]['child.escape']"), data["grand.escape"]["child.escape"]);
+			"[grand.escape][\"child.escape\"]": function () {
+				assert.same(select.call(data, "[grand.escape][\"child.escape\"]"), data["grand.escape"]["child.escape"]);
 			}
 		});
 	});

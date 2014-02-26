@@ -6,46 +6,54 @@ define(function SelectModule() {
 	"use strict";
 
 	var UNDEFINED;
+	var FALSE = false;
+	var PERIOD = ".";
+	var LEFT_BRACKET = "[";
+	var RIGHT_BRACKET = "]";
+	var SINGLE_QUOTE = "'";
+	var DOUBLE_QUOTE = "\"";
 
 	return function select(query) {
 		var node = this;
+		var c;
 		var m;
 		var i;
 		var length;
-		var skip = false;
+		var skip = FALSE;
 
 		for (i = m = 0, length = query.length; i < length && node !== UNDEFINED; i++) {
-			switch(query.charAt(i)) {
-				case ".":
-					if (skip === false && i > m) {
+			switch(c = query.charAt(i)) {
+				case PERIOD:
+					if (skip === FALSE && i > m) {
 						node = node[query.substring(m, i)];
 						m = i + 1;
 					}
 					break;
 
-				case "[":
-					if (skip === false) {
-						skip = "[";
+				case LEFT_BRACKET:
+					if (skip === FALSE) {
+						skip = LEFT_BRACKET;
 						m = i + 1;
 					}
 					break;
 
-				case "]":
-					if (skip === "[" && i > m) {
+				case RIGHT_BRACKET:
+					if (skip === LEFT_BRACKET && i > m) {
 						node = node[query.substring(m, i)];
-						skip = false;
+						skip = FALSE;
 						m = i + 2;
 					}
 					break;
 
-				case "'":
-					if (skip === "'" && i > m) {
+				case DOUBLE_QUOTE:
+				case SINGLE_QUOTE:
+					if (skip === c && i > m) {
 						node = node[query.substring(m, i)];
-						skip = false;
+						skip = FALSE;
 						m = i + 2;
 					}
 					else {
-						skip = "'";
+						skip = c;
 						m = i + 1;
 					}
 					break;
