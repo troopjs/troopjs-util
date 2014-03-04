@@ -6,6 +6,6 @@
 		"node_modules"
 	],
 	"dependencies": {
-		"poly": "~0.6"
+		"poly": "~0"
 	}
 }
