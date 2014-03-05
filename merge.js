@@ -1,9 +1,16 @@
 /*
- * TroopJS utils/merge module
- * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
+ * @license MIT http://troopjs.mit-license.org/
  */
 define([ "poly/object" ], function MergeModule() {
 	"use strict";
+
+	/**
+	 * Function that calls on an Object, to augments this object with enumerable properties from the source objects,
+	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
+	 * while object and array values will get merged recursively.
+	 * @class utils.merge
+	 * @singleton
+	 */
 
 	var UNDEFINED;
 	var NULL = null;
@@ -16,12 +23,9 @@ define([ "poly/object" ], function MergeModule() {
 	var LENGTH = "length";
 
 	/**
-	 * Function that calls on an Object, to augments this object with enumerable properties from the source objects,
-	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
-	 * while object and array values will get merged recursively.
-	 * @class utils.merge
+	 * @method constructor
 	 * @param {...Object} [source] One or more source objects.
-	 * @return {Object} this
+	 * @return {*} Merged object
 	 */
 	return function merge(source) {
 		var target = this;

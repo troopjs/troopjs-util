@@ -1,9 +1,13 @@
 /*
- * TroopJS utils/select
- * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
+ * @license MIT http://troopjs.mit-license.org/
  */
 define(function SelectModule() {
 	"use strict";
+
+	/**
+	 * @class utils.select
+	 * @singleton
+	 */
 
 	var UNDEFINED;
 	var FALSE = false;
@@ -13,6 +17,12 @@ define(function SelectModule() {
 	var SINGLE_QUOTE = "'";
 	var DOUBLE_QUOTE = "\"";
 
+	/**
+	 * Function that traverses a JSON object
+	 * @method constructor
+	 * @param {String} query simple JSON query
+	 * @returns {*} Value from traversed query
+	 */
 	return function select(query) {
 		var node = this;
 		var c;
