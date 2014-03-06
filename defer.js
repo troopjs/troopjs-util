@@ -1,16 +1,23 @@
-/*
- * TroopJS utils/defer
- * when.defer patched with jQuery/deferred compatibility.
- * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
+/**
+ * @license MIT http://troopjs.mit-license.org/
  */
-define([ "when", "poly/array" ], function DeferModule(when) {
+define([
+	"when",
+	"poly/array"
+], function DeferModule(when) {
 	"use strict";
+
+	/**
+	 * `when.defer` patched with jQuery/deferred compatibility.
+	 * @class utils.defer
+	 * @singleton
+	 */
 
 	var ARRAY_SLICE = Array.prototype.slice;
 
 	/**
-	 * @class utils.defer
-	 * Function that creates a wrapped when.defer object, which can be send to anything that expects a jQuery/deferred.
+	 * Creates a wrapped when.defer object, which can be send to anything that expects a jQuery/deferred.
+	 * @method constructor
 	 */
 	return function Defer() {
 		// Create defer

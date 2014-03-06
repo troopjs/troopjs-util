@@ -1,17 +1,20 @@
-/*
- * TroopJS utils/unique
- * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
+/**
+ * @license MIT http://troopjs.mit-license.org/
  */
 define(function UniqueModule() {
 	"use strict";
+
+	/**
+	 * @class utils.unique
+	 * @singleton
+	 */
 
 	var LENGTH = "length";
 
 	/**
 	 * Function that calls on an array to produces a duplicate-free version of this array, using the specified comparator otherwise
-	 * strictly equals(===) to test object equality.
-	 *
-	 * @class utils.unique
+	 * strictly equals(`===`) to test object equality.
+	 * @method constructor
 	 * @param {Function} [fn] The comparator function.
 	 * @param {Function} fn.one One element to compare.
 	 * @param {Function} fn.other The other element to compare with.

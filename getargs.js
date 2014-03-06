@@ -1,9 +1,13 @@
-/*
- * TroopJS utils/getargs
- * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
+/**
+ * @license MIT http://troopjs.mit-license.org/
  */
 define(function GetArgsModule() {
 	"use strict";
+
+	/**
+	 * @class utils.getargs
+	 * @singleton
+	 */
 
 	var PUSH = Array.prototype.push;
 	var SUBSTRING = String.prototype.substring;
@@ -17,7 +21,7 @@ define(function GetArgsModule() {
 	 * 	" 1  , '2' , 3  ,false,5 " => [ 1, "2", 3, false, 5]
 	 * 	'1, 2 ',  3,\"4\", 5  => [ "1, 2 ", 3, "4", 5 ]
 	 *
-	 * @class utils.getargs
+	 * @method constructor
 	 * @return {Array} the array of parsed params.
 	 */
 	return function getargs() {
