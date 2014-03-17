@@ -9,6 +9,7 @@ define([ "poly/object" ], function MergeModule() {
 	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
 	 * while object and array values will get merged recursively.
 	 * @class utils.merge
+	 * @extends Function
 	 * @singleton
 	 */
 

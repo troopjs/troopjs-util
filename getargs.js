@@ -6,6 +6,7 @@ define(function GetArgsModule() {
 
 	/**
 	 * @class utils.getargs
+	 * @extends Function
 	 * @singleton
 	 */
 

@@ -6,6 +6,7 @@ define(function UniqueModule() {
 
 	/**
 	 * @class utils.unique
+	 * @extends Function
 	 * @singleton
 	 */
 

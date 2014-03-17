@@ -6,6 +6,7 @@ define(function SelectModule() {
 
 	/**
 	 * @class utils.select
+	 * @extends Function
 	 * @singleton
 	 */
 
