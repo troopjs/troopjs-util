@@ -5,12 +5,9 @@ define([ "poly/object" ], function MergeModule() {
 	"use strict";
 
 	/**
-	 * Function that calls on an Object, to augments this object with enumerable properties from the source objects,
-	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
-	 * while object and array values will get merged recursively.
 	 * @class utils.merge
 	 * @extends Function
-	 * @singleton
+	 * @static
 	 */
 
 	var UNDEFINED;
@@ -25,6 +22,15 @@ define([ "poly/object" ], function MergeModule() {
 
 	/**
 	 * @method constructor
+	 * @hide
+	 */
+
+	/**
+	 * Function that calls on an Object, to augments this object with enumerable properties from the source objects,
+	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
+	 * while object and array values will get merged recursively.
+	 * @method constructor
+	 * @static
 	 * @param {...Object} [source] One or more source objects.
 	 * @return {*} Merged object
 	 */
