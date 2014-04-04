@@ -17,18 +17,12 @@ define(function GetArgsModule() {
 	var RE_DIGIT = /^\d+$/;
 
 	/**
-	 * @method constructor
-	 * @hide
-	 */
-
-	/**
 	 * Function that calls on a String, to parses it as function parameters delimited by commas.
 	 *
 	 * 	" 1  , '2' , 3  ,false,5 " => [ 1, "2", 3, false, 5]
 	 * 	'1, 2 ',  3,\"4\", 5  => [ "1, 2 ", 3, "4", 5 ]
 	 *
 	 * @method constructor
-	 * @static
 	 * @return {Array} the array of parsed params.
 	 */
 	return function getargs() {

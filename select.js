@@ -19,14 +19,8 @@ define(function SelectModule() {
 	var DOUBLE_QUOTE = "\"";
 
 	/**
-	 * @method constructor
-	 * @hide
-	 */
-
-	/**
 	 * Function that traverses a JSON object
 	 * @method constructor
-	 * @static
 	 * @param {String} query simple JSON query
 	 * @returns {*} Value from traversed query
 	 */

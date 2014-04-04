@@ -17,14 +17,8 @@ define([
 	var ARRAY_SLICE = Array.prototype.slice;
 
 	/**
-	 * @method constructor
-	 * @hide
-	 */
-
-	/**
 	 * Creates a wrapped when.defer object, which can be send to anything that expects a jQuery/deferred.
 	 * @method constructor
-	 * @static
 	 * @return {Deferred}
 	 */
 	return function Defer() {

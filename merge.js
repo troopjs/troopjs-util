@@ -21,16 +21,10 @@ define([ "poly/object" ], function MergeModule() {
 	var LENGTH = "length";
 
 	/**
-	 * @method constructor
-	 * @hide
-	 */
-
-	/**
 	 * Function that calls on an Object, to augments this object with enumerable properties from the source objects,
 	 * subsequent sources will overwrite property assignments of previous sources on primitive values,
 	 * while object and array values will get merged recursively.
 	 * @method constructor
-	 * @static
 	 * @param {...Object} [source] One or more source objects.
 	 * @return {*} Merged object
 	 */
