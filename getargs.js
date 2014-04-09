@@ -6,7 +6,7 @@ define(function GetArgsModule() {
 
 	/**
 	 * @class utils.getargs
-	 * @extends Function
+	 * @mixin Function
 	 * @static
 	 */
 

@@ -6,7 +6,7 @@ define(function SelectModule() {
 
 	/**
 	 * @class utils.select
-	 * @extends Function
+	 * @mixin Function
 	 * @static
 	 */
 
