@@ -5,7 +5,7 @@ define(function UniqueModule() {
 	"use strict";
 
 	/**
-	 * @class utils.unique
+	 * @class util.unique
 	 * @mixin Function
 	 * @static
 	 */

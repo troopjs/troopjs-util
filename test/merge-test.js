@@ -1,10 +1,10 @@
 /*globals buster:false*/
-buster.testCase("troopjs-utils/merge", function (run) {
+buster.testCase("troopjs-util/merge", function (run) {
 	"use strict";
 
 	var assert = buster.referee.assert;
 
-	require( [ "troopjs-utils/merge" ] , function (merge) {
+	require( [ "troopjs-util/merge" ] , function (merge) {
 		run({
 			"null or undefined should return quick": function () {
 				assert.same(merge.call(null, {'a':1}), null);

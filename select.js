@@ -5,7 +5,7 @@ define(function SelectModule() {
 	"use strict";
 
 	/**
-	 * @class utils.select
+	 * @class util.select
 	 * @mixin Function
 	 * @static
 	 */

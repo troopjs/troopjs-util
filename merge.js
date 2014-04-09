@@ -5,7 +5,7 @@ define([ "poly/object" ], function MergeModule() {
 	"use strict";
 
 	/**
-	 * @class utils.merge
+	 * @class util.merge
 	 * @mixin Function
 	 * @static
 	 */

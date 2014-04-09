@@ -1,2 +1,2 @@
-troopjs-utils
+troopjs-util
 =============

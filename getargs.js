@@ -5,7 +5,7 @@ define(function GetArgsModule() {
 	"use strict";
 
 	/**
-	 * @class utils.getargs
+	 * @class util.getargs
 	 * @mixin Function
 	 * @static
 	 */

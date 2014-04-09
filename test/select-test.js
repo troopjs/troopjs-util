@@ -1,10 +1,10 @@
 /*globals buster:false*/
-buster.testCase("troopjs-utils/select", function (run) {
+buster.testCase("troopjs-util/select", function (run) {
 	"use strict";
 
 	var assert = buster.referee.assert;
 
-	require( [ "troopjs-utils/select" ] , function (select) {
+	require( [ "troopjs-util/select" ] , function (select) {
 		var data = {
 			"child": 1,
 

@@ -9,7 +9,7 @@ define([
 
 	/**
 	 * `when.defer` patched with jQuery/deferred compatibility.
-	 * @class utils.defer
+	 * @class util.defer
 	 * @mixin Function
 	 * @static
 	 */
