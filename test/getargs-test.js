@@ -1,10 +1,10 @@
 /*globals buster:false*/
-buster.testCase("troopjs-utils/getargs", function (run) {
+buster.testCase("troopjs-util/getargs", function (run) {
 	"use strict";
 
-	var assert = buster.assert;
+	var assert = buster.referee.assert;
 
-	require( [ "troopjs-utils/getargs" ] , function (getargs) {
+	require( [ "troopjs-util/getargs" ] , function (getargs) {
 		run({
 			"1,true,3" : function () {
 				assert.equals(getargs.call("1,true,3"), [ 1, true, 3 ]);
@@ -27,7 +27,7 @@ buster.testCase("troopjs-utils/getargs", function (run) {
 			},
 
 			" '1, 2 ',  3,\"4\", 5 " : function () {
-				assert.equals(getargs.call(" '1, 2 ',  3,\"4\", 5 "), [ "1, 2 ", "3", "4", "5" ]);
+				assert.equals(getargs.call(" '1, 2 ',  3,\"4\", 5 "), [ "1, 2 ", 3, "4", 5 ]);
 			}
 		});
 	});

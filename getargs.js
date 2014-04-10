@@ -1,9 +1,14 @@
 /**
- * TroopJS utils/getargs
- * @license MIT http://troopjs.mit-license.org/ © Mikael Karon mailto:mikael@karon.se
+ * @license MIT http://troopjs.mit-license.org/
  */
 define(function GetArgsModule() {
 	"use strict";
+
+	/**
+	 * @class util.getargs
+	 * @mixin Function
+	 * @static
+	 */
 
 	var PUSH = Array.prototype.push;
 	var SUBSTRING = String.prototype.substring;
@@ -11,6 +16,15 @@ define(function GetArgsModule() {
 	var RE_BOOLEAN_TRUE = /^true$/i;
 	var RE_DIGIT = /^\d+$/;
 
+	/**
+	 * Function that calls on a String, to parses it as function parameters delimited by commas.
+	 *
+	 * 	" 1  , '2' , 3  ,false,5 " => [ 1, "2", 3, false, 5]
+	 * 	'1, 2 ',  3,\"4\", 5  => [ "1, 2 ", 3, "4", 5 ]
+	 *
+	 * @method constructor
+	 * @return {Array} the array of parsed params.
+	 */
 	return function getargs() {
 		var me = this;
 		var result = [];
