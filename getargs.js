@@ -21,8 +21,30 @@ define(function GetArgsModule() {
 	/**
 	 * Function that calls on a String, to parses it as function parameters delimited by commas.
 	 *
-	 * 	" 1  , '2' , 3  ,false,5 " => [ 1, "2", 3, false, 5]
-	 * 	'1, 2 ',  3,\"4\", 5  => [ "1, 2 ", 3, "4", 5 ]
+	 * 	" 1  , '2' , 3  ,false,5 "
+	 *
+	 * results in
+	 *
+	 * 	[ 1, "2", 3, false, 5]
+	 *
+	 *
+	 * and
+	 *
+	 * 	"'1, 2 ',  3,\"4\", 5 "
+	 *
+	 * results in
+	 *
+	 * 	[ "1, 2 ", 3, "4", 5 ]
+	 *
+	 * Also handles named parameters.
+	 *
+	 * 	"1, two=2, 3, 'key.four'=4, 5"
+	 *
+	 * results in
+	 *
+	 * 	result = [1, 2, 3, 4, 5]
+	 * 	result["two"] === result[1]
+	 * 	result["key.four"] === result[3]
 	 *
 	 * @method constructor
 	 * @return {Array} the array of parsed params.
