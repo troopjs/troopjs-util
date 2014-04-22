@@ -81,7 +81,7 @@ define(function GetArgsModule() {
 						to = index + 1;
 					}
 					// Otherwise
-					else {
+					else if (quote === false) {
 						// Start quote
 						quote = c;
 

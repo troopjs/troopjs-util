@@ -50,6 +50,10 @@ buster.testCase("troopjs-util/getargs", function (run) {
 				assert.match(actual, expected);
 				assert.same(actual[1], actual["quoted=key,value"]);
 				assert.same(actual[2], actual["key"]);
+			},
+
+			"[data-type][type='button']": function () {
+				assert.equals(getargs.call("\"[data-type][type='button']\""), [ "[data-type][type='button']" ]);
 			}
 		});
 	});
