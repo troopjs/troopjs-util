@@ -10,8 +10,10 @@ define(function GetArgsModule() {
 	 * @static
 	 */
 
-	var PUSH = Array.prototype.push;
-	var SUBSTRING = String.prototype.substring;
+	var UNDEFINED;
+	var STR_SUBSTRING = String.prototype.substring;
+	var STR_SLICE = String.prototype.slice;
+	var RE_STRING = /^(["']).*\1$/;
 	var RE_BOOLEAN = /^(?:false|true)$/i;
 	var RE_BOOLEAN_TRUE = /^true$/i;
 	var RE_DIGIT = /^\d+$/;
@@ -19,112 +21,181 @@ define(function GetArgsModule() {
 	/**
 	 * Function that calls on a String, to parses it as function parameters delimited by commas.
 	 *
-	 * 	" 1  , '2' , 3  ,false,5 " => [ 1, "2", 3, false, 5]
-	 * 	'1, 2 ',  3,\"4\", 5  => [ "1, 2 ", 3, "4", 5 ]
+	 * 	" 1  , '2' , 3  ,false,5 "
+	 *
+	 * results in
+	 *
+	 * 	[ 1, "2", 3, false, 5]
+	 *
+	 *
+	 * and
+	 *
+	 * 	"'1, 2 ',  3,\"4\", 5 "
+	 *
+	 * results in
+	 *
+	 * 	[ "1, 2 ", 3, "4", 5 ]
+	 *
+	 * Also handles named parameters.
+	 *
+	 * 	"1, two=2, 3, 'key.four'=4, 5"
+	 *
+	 * results in
+	 *
+	 * 	result = [1, 2, 3, 4, 5]
+	 * 	result["two"] === result[1]
+	 * 	result["key.four"] === result[3]
 	 *
 	 * @method constructor
 	 * @return {Array} the array of parsed params.
 	 */
 	return function getargs() {
 		var me = this;
-		var result = [];
-		var length;
+		var values = [];
 		var from;
 		var to;
-		var i;
+		var index;
+		var length;
+		var count;
+		var quote = false;
+		var value;
+		var key;
 		var c;
-		var a;
-		var q = false;
 
-		// Iterate over string
-		for (from = to = i = 0, length = me.length; i < length; i++) {
+		// Iterate string
+		for (index = count = from = to = 0, length = me.length; index < length; index++) {
+
 			// Get char
-			c = me.charAt(i);
+			c = me.charAt(index);
 
 			switch(c) {
 				case "\"" :
 				/* falls through */
 				case "'" :
 					// If we are currently quoted...
-					if (q === c) {
+					if (quote === c) {
 						// Stop quote
-						q = false;
+						quote = false;
 
-						// Store result (no need to convert, we know this is a string)
-						PUSH.call(result, SUBSTRING.call(me, from, to));
+						// Update to
+						to = index + 1;
 					}
 					// Otherwise
-					else {
+					else if (quote === false) {
 						// Start quote
-						q = c;
+						quote = c;
+
+						// Update from/to
+						from = to = index;
 					}
-
-					// Update from/to
-					from = to = i + 1;
-					break;
-
-				case "," :
-					// Continue if we're quoted
-					if (q) {
-						to = i + 1;
-						break;
-					}
-
-					// If we captured something...
-					if (from !== to) {
-						a = SUBSTRING.call(me, from, to);
-
-						if (RE_BOOLEAN.test(a)) {
-							a = RE_BOOLEAN_TRUE.test(a);
-						}
-						else if (RE_DIGIT.test(a)) {
-							a = +a;
-						}
-
-						// Store result
-						PUSH.call(result, a);
-					}
-
-					// Update from/to
-					from = to = i + 1;
 					break;
 
 				case " " :
 				/* falls through */
 				case "\t" :
 					// Continue if we're quoted
-					if (q) {
-						to = i + 1;
+					if (quote) {
+						to = index + 1;
 						break;
 					}
 
 					// Update from/to
 					if (from === to) {
-						from = to = i + 1;
+						from = to = index + 1;
 					}
+					break;
+
+				case "=":
+					// Continue if we're quoted
+					if (quote) {
+						to = index + 1;
+						break;
+					}
+
+					// If we captured something...
+					if (from !== to) {
+						// Extract substring
+						key = STR_SUBSTRING.call(me, from, to);
+
+						if (RE_STRING.test(key)) {
+							key = STR_SLICE.call(key, 1, -1);
+						}
+					}
+
+					from = index + 1;
+					break;
+
+				case "," :
+					// Continue if we're quoted
+					if (quote) {
+						to = index + 1;
+						break;
+					}
+
+					// If we captured something...
+					if (from !== to) {
+						// Extract substring
+						value = STR_SUBSTRING.call(me, from, to);
+
+						if (RE_STRING.test(value)) {
+							value = STR_SLICE.call(value, 1, -1);
+						}
+						else if (RE_BOOLEAN.test(value)) {
+							value = RE_BOOLEAN_TRUE.test(value);
+						}
+						else if (RE_DIGIT.test(value)) {
+							value = +value;
+						}
+
+						// Store value with key or just index
+						if (key !== UNDEFINED) {
+							// Store value
+							values[key] = values[count++] = value;
+
+							// Reset key
+							key = UNDEFINED;
+						}
+						else {
+							// Store value
+							values[count++] = value;
+						}
+					}
+
+					// Update from/to
+					from = to = index + 1;
 					break;
 
 				default :
 					// Update to
-					to = i + 1;
+					to = index + 1;
 			}
 		}
 
 		// If we captured something...
 		if (from !== to) {
-			a = SUBSTRING.call(me, from, to);
+			value = STR_SUBSTRING.call(me, from, to);
 
-			if (RE_BOOLEAN.test(a)) {
-				a = RE_BOOLEAN_TRUE.test(a);
+			if (RE_STRING.test(value)) {
+				value = STR_SLICE.call(value, 1, -1);
 			}
-			else if (RE_DIGIT.test(a)) {
-				a = +a;
+			else if (RE_BOOLEAN.test(value)) {
+				value = RE_BOOLEAN_TRUE.test(value);
+			}
+			else if (RE_DIGIT.test(value)) {
+				value = +value;
 			}
 
-			// Store result
-			PUSH.call(result, a);
+			// Store value with key or just index
+			if (key !== UNDEFINED) {
+				// Store value
+				values[key] = values[count] = value;
+			}
+			else {
+				// Store value
+				values[count] = value;
+			}
 		}
 
-		return result;
+		return values;
 	};
 });
