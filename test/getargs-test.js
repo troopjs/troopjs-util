@@ -52,8 +52,14 @@ buster.testCase("troopjs-util/getargs", function (run) {
 				assert.same(actual[2], actual["key"]);
 			},
 
-			"[data-type][type='button']": function () {
-				assert.equals(getargs.call("\"[data-type][type='button']\""), [ "[data-type][type='button']" ]);
+			"[data-type][type='button'], #foo .bar:nth-child(1)": function () {
+				assert.equals(getargs.call("\"[data-type][type='button']\", #foo .bar:nth-child(1)"), [ "[data-type][type='button']", "#foo .bar:nth-child(1)" ]);
+			},
+
+			"/:foo?/(:bar/:baz)?, foo.bar.baz": function () {
+				var expected = [ "/:foo?/(:bar/:baz)?", "foo.bar.baz" ];
+				var actual = getargs.call("/:foo?/(:bar/:baz)?, foo.bar.baz");
+				assert.match(actual, expected);
 			}
 		});
 	});
