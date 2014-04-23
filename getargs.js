@@ -56,14 +56,40 @@ define(function GetArgsModule() {
 		var to;
 		var index;
 		var length;
-		var count;
 		var quote = false;
-		var value;
 		var key;
 		var c;
 
+		// Try to extract value from the specified string range.
+		function extract(from, to) {
+			// Nothing captured.
+			if (from === to)
+				return;
+
+			var value = STR_SUBSTRING.call(me, from, to);
+			if (RE_STRING.test(value)) {
+				value = STR_SLICE.call(value, 1, -1);
+			}
+			else if (RE_BOOLEAN.test(value)) {
+				value = RE_BOOLEAN_TRUE.test(value);
+			}
+			else if (RE_DIGIT.test(value)) {
+				value = +value;
+			}
+
+			// Store value by index.
+			values.push(value);
+
+			// Store value with key or just index
+			if (key !== UNDEFINED) {
+				values[key] = value;
+				// Reset key
+				key = UNDEFINED;
+			}
+		}
+
 		// Iterate string
-		for (index = count = from = to = 0, length = me.length; index < length; index++) {
+		for (index = from = to = 0, length = me.length; index < length; index++) {
 
 			// Get char
 			c = me.charAt(index);
@@ -133,33 +159,7 @@ define(function GetArgsModule() {
 					}
 
 					// If we captured something...
-					if (from !== to) {
-						// Extract substring
-						value = STR_SUBSTRING.call(me, from, to);
-
-						if (RE_STRING.test(value)) {
-							value = STR_SLICE.call(value, 1, -1);
-						}
-						else if (RE_BOOLEAN.test(value)) {
-							value = RE_BOOLEAN_TRUE.test(value);
-						}
-						else if (RE_DIGIT.test(value)) {
-							value = +value;
-						}
-
-						// Store value with key or just index
-						if (key !== UNDEFINED) {
-							// Store value
-							values[key] = values[count++] = value;
-
-							// Reset key
-							key = UNDEFINED;
-						}
-						else {
-							// Store value
-							values[count++] = value;
-						}
-					}
+					extract(from, to);
 
 					// Update from/to
 					from = to = index + 1;
@@ -172,29 +172,7 @@ define(function GetArgsModule() {
 		}
 
 		// If we captured something...
-		if (from !== to) {
-			value = STR_SUBSTRING.call(me, from, to);
-
-			if (RE_STRING.test(value)) {
-				value = STR_SLICE.call(value, 1, -1);
-			}
-			else if (RE_BOOLEAN.test(value)) {
-				value = RE_BOOLEAN_TRUE.test(value);
-			}
-			else if (RE_DIGIT.test(value)) {
-				value = +value;
-			}
-
-			// Store value with key or just index
-			if (key !== UNDEFINED) {
-				// Store value
-				values[key] = values[count] = value;
-			}
-			else {
-				// Store value
-				values[count] = value;
-			}
-		}
+		extract(from, to);
 
 		return values;
 	};
